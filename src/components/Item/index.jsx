@@ -14,10 +14,15 @@ export default class Item extends Component {
       isMouseIn: false
     })
   }
-  changeCheck = (e) => {
+  changeCheck = (id) => {
     const {changeTodo}  =this.props
-    return (id) => {
+    return (e) => {
       changeTodo(id,e.target.checked)
+    }
+  }
+  del = (id) => {
+    return () => {
+      this.props.delTodo(id)
     }
   }
   render() {
@@ -25,10 +30,10 @@ export default class Item extends Component {
     return (
       <li onMouseEnter={this.moveIn} onMouseLeave={this.moveOut} style={{backgroundColor: this.state.isMouseIn ? '#ccc' : ''}}>
         <label>
-          <input type="checkbox" onChange={this.changeCheck(id)} defaultChecked={todo.done?true:false}/>
+          <input type="checkbox" onChange={this.changeCheck(id)} checked={todo.done ? true : false}/>
           <span>{todo.name}</span>
         </label>
-        <button className="btn btn-danger" style={{display:this.state.isMouseIn ? 'block' : 'none'}}>删除</button>
+        <button className="btn btn-danger" style={{display:this.state.isMouseIn ? 'block' : 'none'}} onClick={this.del(id)}>删除</button>
       </li>
     )
   }
