@@ -1,27 +1,12 @@
 import React, { Component } from 'react'
-import PubSub from 'pubsub-js'
 // import PropTypes from 'prop-types'
 import './index.css'
 export default class index extends Component {
   // static propTypes = {
   //   state: PropTypes.object.isRequired
   // }
-  state = {
-    items: [],
-    isFirst: true,
-    isLoading: false,
-    err: ''
-  }
-  componentDidMount () {
-    this.watchState = PubSub.subscribe('watchState',(msg,data) => {
-      this.setState(data)
-    })
-  }
-  componentWillUnmount () {
-    PubSub.unsubscribe(this.watchState)
-  }
   render() {
-    const {items, isFirst, isLoading, err} = this.state
+    const {items, isFirst, isLoading, err} = this.props
     return (
       <div className="row">
       {
